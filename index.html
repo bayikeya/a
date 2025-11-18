@@ -115,7 +115,7 @@
 
     <script>
         const spots = [
-                { name: "東公衆トイレ前", lat: 35.69355503560675, lon: 140.66917459260404, radius: 0, images: ["矢指１ー１.JPG", "矢指１ー２.JPG"], audio: { A: "矢指１_東公衆トイレ前ja.mp3", B: "矢指１_東公衆トイレ前en.mp3", C: "矢指１_東公衆トイレ前ch.mp3" } },
+                { name: "東公衆トイレ前", lat: 35.69355503560675, lon: 140.66917459260404, radius: 0, images: ["飯岡1_1.jpeg", "飯岡5_1.jpg"], audio: { A: "矢指１_東公衆トイレ前ja.mp3", B: "矢指１_東公衆トイレ前en.mp3", C: "矢指１_東公衆トイレ前ch.mp3" } },
                 { name: "避難誘導サイン前", lat: 35.693971059606824, lon: 140.66996899502158, radius: 20, images: ["矢指２ー１.JPG", "矢指２ー２.JPG"], audio: { A: "矢指２_避難看板前ja.mp3", B: "矢指２_避難看板前en.mp3", C: "矢指２_避難看板前ch.mp3" } },
                 { name: "避難誘導サイン付き電柱下", lat: 35.69584753473119, lon: 140.66948530177515, radius: 20, images: ["矢指３ー１.JPG", "矢指３－２.JPG"], audio: { A: "矢指３_看板付き電柱下ja.mp3", B: "矢指３_看板付き電柱下en.mp3", C: "矢指３_看板付き電柱下ch.mp3" } },
                 { name: "横断歩道信号下", lat: 35.697147375381995, lon: 140.67124135170698, radius: 20, images: ["矢指４ー１.JPG", "矢指４ー２.JPG"], audio: { A: "矢指４_横断歩道信号下ja.mp3", B: "矢指４_横断歩道信号下en.mp3", C: "矢指４_横断歩道信号下ch.mp3" } },
@@ -152,7 +152,19 @@
         const prevBtn = document.getElementById("prevBtn");
         const nextImgBtn = document.getElementById("nextImgBtn");
 
-       
+        /* --- QRコード初期座標取得 --- */
+        function getQRInitialPosition() {
+            const params = new URLSearchParams(window.location.search);
+            const lat = parseFloat(params.get("lat"));
+            const lon = parseFloat(params.get("lon"));
+            if (!isNaN(lat) && !isNaN(lon)) {
+                imuLat = lat;
+                imuLon = lon;
+                info.innerText = `QRコード補正済み位置: 緯度 ${lat.toFixed(6)}, 経度 ${lon.toFixed(6)}`;
+                spots[0].lat = lat;
+                spots[0].lon = lon;
+            }
+        }
 
         /* --- 避難開始ボタン用関数 --- */
         function startEvacuation() {
@@ -350,9 +362,4 @@
 
 </body>
 
-
 </html>
-
-
-
-
